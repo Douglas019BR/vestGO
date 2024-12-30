@@ -45,6 +45,7 @@ class CustomUserCreateListView(generics.ListCreateAPIView):
     permission_classes = [IsAdminUser, IsAuthenticated]
 
     def get(self, request):
+        import ipdb;ipdb.set_trace()
         return UserService().get_users_paginated(request)
 
 

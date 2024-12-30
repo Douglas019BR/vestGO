@@ -9,5 +9,5 @@ from vestgo_api.services.paginate import paginate
 
 class UserService:
     def get_users_paginated(self, request: Request) -> Response:
-        query_set = CustomUser.objects
+        query_set = CustomUser.objects.all()
         return paginate(query_set, request, CustomUserCreateListSerializer)

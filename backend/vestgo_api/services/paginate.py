@@ -1,4 +1,4 @@
-from typing import Any, Type
+from typing import Type
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.settings import api_settings
 from rest_framework.request import Request
@@ -12,14 +12,24 @@ def paginate(
     request: Request,
     serializer_class: Type[BaseSerializer],
     use_all: bool = True,
-    page_size: int = None,
+    page_size: int = 0,
 ) -> Response:
     templates = query_set.all() if use_all else query_set
     paginator = PageNumberPagination()
+
     if page_size:
         paginator.page_size = page_size
     else:
         paginator.page_size = api_settings.PAGE_SIZE
+
     result_page = paginator.paginate_queryset(templates, request)
+    if result_page is None:
+        return Response({
+            "count": 0,
+            "next": None,
+            "previous": None,
+            "results": []
+        })
+
     serialized_data = serializer_class(result_page, many=True)
     return paginator.get_paginated_response(serialized_data.data)
