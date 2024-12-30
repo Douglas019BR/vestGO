@@ -7,6 +7,7 @@ from .managers import CustomUserManager
 
 # Create your models here.
 
+
 class School(models.Model):
     name = models.CharField(max_length=128)
     address = models.CharField(max_length=128)
@@ -16,10 +17,11 @@ class School(models.Model):
     father_school = models.ForeignKey(
         "self", default=None, on_delete=models.CASCADE, blank=True, null=True
     )
-    
+
     def __str__(self):
         return self.name
-    
+
+
 class CustomUser(AbstractUser):
     username = None
     email = models.EmailField(_("email address"), unique=True)
@@ -28,12 +30,10 @@ class CustomUser(AbstractUser):
         "self", default=None, on_delete=models.CASCADE, blank=True, null=True
     )
     ai_data_hash = models.CharField(max_length=64, blank=True, null=True)
-    school = models.ForeignKey(
-        School , on_delete=models.CASCADE, blank=True, null=True
-    )
+    school = models.ForeignKey(School, on_delete=models.CASCADE, blank=True, null=True)
     groups = models.ManyToManyField(
         'auth.Group',
-        related_name='custom_user_groups', 
+        related_name='custom_user_groups',
         blank=True,
     )
     user_permissions = models.ManyToManyField(

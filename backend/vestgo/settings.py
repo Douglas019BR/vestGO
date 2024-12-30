@@ -26,10 +26,8 @@ SECRET_KEY = 'django-insecure-+%wc(v*4%e17mjtr4y)m1r2$*im4-=-vmg7vrg4o97ykdzvjoh
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-
-# user model not default
+# user not the django default
 AUTH_USER_MODEL = 'vestgo_api.CustomUser'
-
 
 
 ALLOWED_HOSTS = []
@@ -44,7 +42,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    "rest_framework",
     "vestgo_api",
 ]
 
